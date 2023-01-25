@@ -4,6 +4,8 @@ $can_add = ACL::is_allowed("barang/add");
 $can_edit = ACL::is_allowed("barang/edit");
 $can_view = ACL::is_allowed("barang/view");
 $can_delete = ACL::is_allowed("barang/delete");
+$can_approved = ACL::is_allowed("barang/approved");
+$can_rejected = ACL::is_allowed("barang/rejected");
 ?>
 <?php
 $comp_model = new SharedController;
@@ -178,7 +180,12 @@ $show_pagination = $this->show_pagination;
                                             <th class="td-Tahun_Perolehan"> Tahun Perolehan</th>
                                             <th class="td-Tahun_Perolehan"> Nama Karyawan</th>
                                             <?php if (@$_GET['act'] == "penyusutan"){ ?>
-                                            <th class="td-Tahun_Penyusutan"> Tahun Penyusutan</th>
+                                                <th class="td-Tahun_Penyusutan"> Tahun Penyusutan</th>
+                                            <?php } ?>
+                                            <?php foreach($records as $data){ ?>
+                                            <?php if ($data['status'] != ""){ ?>
+                                            <th class="td-status"> Status</th>
+                                            <?php } ?>
                                             <?php } ?>
                                             <th class="td-btn"></th>
                                         </tr>
@@ -318,21 +325,30 @@ $show_pagination = $this->show_pagination;
                                                 </span>
                                             </td>
                                             <?php } ?>
+                                            <td class="td-status">
+                                            <?php if ($data['status'] == 'Disetujui'){ ?>
+                                            <span class="badge bg-success text-light"><?php echo $data['status']; ?></span>
+                                            <?php } else if ($data['status'] == 'Ditolak'){ ?>
+                                            <span class="badge bg-danger text-light"><?php echo $data['status']; ?></span>
+                                            <?php } ?>
+                                            </td>
                                             <th class="td-btn">
                                                 
                                                 <?php if (!@$_GET['act']){ ?>
-                                                <?php if($can_view){ ?>
+                                                <?php if ($data['status'] == ''){ ?>
+                                                <?php if($can_approved){ ?>
                                                 <a class="btn btn-sm btn-success has-tooltip" title="Menyetujui"
-                                                    href="<?php print_link("approve/view/$rec_id"); ?>">
+                                                    href="<?php print_link("barang/approved/$rec_id"); ?>">
                                                     <i class=""></i> Setuju
                                                 </a>
                                                 
                                                 <?php } ?>
                                                 <?php if($can_edit){ ?>
                                                 <a class="btn btn-sm btn-danger has-tooltip" title="Ditolak"
-                                                    href="">
+                                                    href="<?php print_link("barang/rejected/$rec_id"); ?>">
                                                     <i class=""></i> Menolak
                                                 </a>
+                                                <?php } ?>
                                                 <?php } ?>
                                                 <?php } ?>
                                                 <?php if (!@$_GET['act']){ ?>

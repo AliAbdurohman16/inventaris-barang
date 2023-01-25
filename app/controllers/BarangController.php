@@ -31,7 +31,8 @@ class BarangController extends SecureController{
 				"Asal_Perolehan", 
 				"Tahun_Perolehan",
 				"Tahun_Penyusutan",
-				"nama_user");
+				"nama_user",
+				"status");
 				
 			$search_condition = "(
 				".$tablename.".Id_Barang LIKE ? OR 
@@ -47,7 +48,8 @@ class BarangController extends SecureController{
 				".$tablename.".Asal_Perolehan LIKE ? OR 
 				".$tablename.".Tahun_Perolehan LIKE ? OR
 				".$tablename.".Tahun_Penyusutan LIKE ? OR
-				".$tablename.".nama_user LIKE ?
+				".$tablename.".nama_user LIKE ? OR
+				".$tablename.".status LIKE ?
 			)";
 		}else{
 			$page_title = $this->view->page_title = "Barang";
@@ -62,7 +64,8 @@ class BarangController extends SecureController{
 				"Nilai_Per_Aset", 
 				"Asal_Perolehan", 
 				"Tahun_Perolehan", 
-				"nama_user");
+				"nama_user",
+				"status");
 				
 			$search_condition = "(
 				".$tablename.".Id_Barang LIKE ? OR 
@@ -77,7 +80,8 @@ class BarangController extends SecureController{
 				".$tablename.".Id_Kondisi LIKE ? OR 
 				".$tablename.".Asal_Perolehan LIKE ? OR 
 				".$tablename.".Tahun_Perolehan LIKE ? OR
-				".$tablename.".nama_user LIKE ?
+				".$tablename.".nama_user LIKE ? OR
+				".$tablename.".status LIKE ?
 			)";
 		}
 		$db = $this->GetModel();
@@ -431,4 +435,53 @@ class BarangController extends SecureController{
 		}
 	}
 
+	/**
+     * Approve table record with formdata
+	 * @param $rec_id (select record by table primary key)
+     * @return array
+     */
+	function approved($rec_id = null){
+		$request = $this->request;
+		$db = $this->GetModel();
+		$this->rec_id = $rec_id;
+		$tablename = $this->tablename;
+		 //editable fields
+		$fields = $this->fields = array("Id_Barang","status");
+		$modeldata = ['status' => 'Disetujui'];
+		$db->where("barang.Id_Barang", $rec_id);
+		$data = $db->update($tablename, $modeldata);
+			
+		if($data){
+			$this->set_flash_msg("Data has been approved", "success");
+			return	$this->redirect("barang");
+		}
+		else{
+			$this->set_page_error();
+		}
+	}
+
+	/**
+     * Rejected table record with formdata
+	 * @param $rec_id (select record by table primary key)
+     * @return array
+     */
+	function rejected($rec_id = null){
+		$request = $this->request;
+		$db = $this->GetModel();
+		$this->rec_id = $rec_id;
+		$tablename = $this->tablename;
+		 //editable fields
+		$fields = $this->fields = array("Id_Barang","status");
+		$modeldata = ['status' => 'Ditolak'];
+		$db->where("barang.Id_Barang", $rec_id);
+		$data = $db->update($tablename, $modeldata);
+			
+		if($data){
+			$this->set_flash_msg("Data has been rejected", "success");
+			return	$this->redirect("barang");
+		}
+		else{
+			$this->set_page_error();
+		}
+	}
 }

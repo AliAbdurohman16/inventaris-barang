@@ -41,6 +41,7 @@ CREATE TABLE `barang` (
   `Asal_Perolehan` varchar(35) NOT NULL,
   `Tahun_Perolehan` varchar(5) NOT NULL,
   `nama_user` varchar(254) DEFAULT NULL
+  `status` varchar(10) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
