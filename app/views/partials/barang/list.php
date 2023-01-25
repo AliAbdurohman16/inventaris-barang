@@ -341,7 +341,7 @@ $show_pagination = $this->show_pagination;
                                                 </a>
                                                 
                                                 <?php } ?>
-                                                <?php if($can_edit){ ?>
+                                                <?php if($can_rejected){ ?>
                                                 <a class="btn btn-sm btn-danger has-tooltip" title="Ditolak"
                                                     href="<?php print_link("barang/rejected/$rec_id"); ?>">
                                                     <i class=""></i> Menolak
