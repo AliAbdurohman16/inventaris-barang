@@ -182,11 +182,7 @@ $show_pagination = $this->show_pagination;
                                             <?php if (@$_GET['act'] == "penyusutan"){ ?>
                                                 <th class="td-Tahun_Penyusutan"> Tahun Penyusutan</th>
                                             <?php } ?>
-                                            <?php foreach($records as $data){ ?>
-                                            <?php if ($data['status'] != ""){ ?>
                                             <th class="td-status"> Status</th>
-                                            <?php } ?>
-                                            <?php } ?>
                                             <th class="td-btn"></th>
                                         </tr>
                                     </thead>
@@ -326,7 +322,9 @@ $show_pagination = $this->show_pagination;
                                             </td>
                                             <?php } ?>
                                             <td class="td-status">
-                                            <?php if ($data['status'] == 'Disetujui'){ ?>
+                                            <?php if ($data['status'] == 'Diproses'){ ?>
+                                            <span class="badge bg-warning"><?php echo $data['status']; ?></span>
+                                            <?php } else if ($data['status'] == 'Disetujui'){ ?>
                                             <span class="badge bg-success text-light"><?php echo $data['status']; ?></span>
                                             <?php } else if ($data['status'] == 'Ditolak'){ ?>
                                             <span class="badge bg-danger text-light"><?php echo $data['status']; ?></span>
@@ -335,7 +333,7 @@ $show_pagination = $this->show_pagination;
                                             <th class="td-btn">
                                                 
                                                 <?php if (!@$_GET['act']){ ?>
-                                                <?php if ($data['status'] == ''){ ?>
+                                                <?php if ($data['status'] == 'Diproses'){ ?>
                                                 <?php if($can_approved){ ?>
                                                 <a class="btn btn-sm btn-success has-tooltip" title="Menyetujui"
                                                     href="<?php print_link("barang/approved/$rec_id"); ?>">
