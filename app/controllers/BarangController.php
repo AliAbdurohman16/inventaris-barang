@@ -414,7 +414,6 @@ class BarangController extends SecureController{
 			$db->where("barang.Id_Barang", $arr_rec_id);
 			$record = $db->getOne($tablename);
 			$record['Tahun_Penyusutan'] = date('d/m/Y');
-			var_dump($record);
 
 			$db->insert('penyusutan', $record);
 			$db->where("barang.Id_Barang", $arr_rec_id);
