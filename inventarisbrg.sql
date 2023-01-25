@@ -236,6 +236,8 @@ INSERT INTO `role_permissions` (`permission_id`, `role_id`, `page_name`, `action
 (79, 2, 'user', 'userregister'),
 (80, 2, 'user', 'accountedit'),
 (81, 2, 'user', 'accountview');
+(82, 1, 'barang', 'approved');
+(83, 1, 'barang', 'rejected');
 
 -- --------------------------------------------------------
 
