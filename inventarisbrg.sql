@@ -104,6 +104,7 @@ CREATE TABLE `penyusutan` (
   `Tahun_Perolehan` varchar(5) NOT NULL,
   `nama_user` varchar(254) DEFAULT NULL,
   `Tahun_Penyusutan` varchar(10) DEFAULT NULL
+  `status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
